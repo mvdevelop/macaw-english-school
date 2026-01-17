@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import type { RootState } from './store/store';
+import { Toaster } from 'react-hot-toast';
+import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
+import Home from './pages/Home';
+import './index.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const theme = useSelector((state: RootState) => state.theme.mode);
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+        <Navbar />
+        <Sidebar />
+        
+        <main className="ml-0 md:ml-16 lg:ml-64 pt-16 transition-all duration-300">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/courses" element={<Home />} />
+            {/* Adicione outras rotas conforme necessário */}
+          </Routes>
+        </main>
+
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: theme === 'dark' ? '#1f2937' : '#fff',
+              color: theme === 'dark' ? '#fff' : '#333',
+            },
+          }}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;
