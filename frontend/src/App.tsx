@@ -1,8 +1,6 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import type { RootState } from './store/store';
 import { Toaster } from 'react-hot-toast';
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
 import Navbar from './components/Navbar';
@@ -10,13 +8,14 @@ import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
 import SignInSignUp from './components/auth/SignInSignUp';
 import Dashboard from './pages/Dashboard';
+import { useTheme } from './hooks/useTheme';
 import './index.css';
 
 function App() {
-  const theme = useSelector((state: RootState) => state.theme.mode);
+  const { theme } = useTheme();
   const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -26,14 +25,6 @@ function App() {
     
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [theme]);
 
   return (
     <Router>

@@ -5,7 +5,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
+  darkMode: 'class', // ESSENCIAL: deve ser 'class'
   theme: {
     extend: {
       colors: {
@@ -21,15 +21,6 @@ export default {
           800: '#1e40af',
           900: '#1e3a8a',
         },
-        macaw: {
-          blue: '#1e40af',
-          yellow: '#fbbf24',
-          green: '#10b981',
-          red: '#ef4444',
-        }
-      },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
     },
   },

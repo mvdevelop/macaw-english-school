@@ -1,11 +1,12 @@
 
-import { StrictMode } from 'react'
+import { StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { ClerkProvider } from '@clerk/clerk-react'
 import { store } from './store/store'
 import { Provider } from 'react-redux'
+import { setTheme } from './store/slices/themeSlice'
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -14,12 +15,39 @@ if (!PUBLISHABLE_KEY) {
   throw new Error('Add your Clerk Publishable Key to the .env file')
 }
 
+// Função para inicializar o tema antes do render
+const initializeTheme = () => {
+  const savedTheme = localStorage.getItem('theme');
+  let theme: 'light' | 'dark' = 'light';
+  
+  if (savedTheme === 'light' || savedTheme === 'dark') {
+    theme = savedTheme;
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    theme = 'dark';
+  }
+  
+  // Aplica o tema imediatamente
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+  
+  return theme;
+};
+
+// Inicializa o tema antes do render
+const initialTheme = initializeTheme();
+
+// Atualiza o estado do Redux com o tema inicial
+store.dispatch(setTheme(initialTheme));
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ClerkProvider 
       publishableKey={PUBLISHABLE_KEY}
       appearance={{
-        baseTheme: undefined, // Usará tema do sistema
+        baseTheme: initialTheme === 'dark' ? 'dark' : 'light',
         variables: {
           colorPrimary: '#3b82f6',
           colorTextOnPrimaryBackground: '#ffffff',

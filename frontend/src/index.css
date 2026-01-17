@@ -1,9 +1,25 @@
 
+/* REMOVA esta linha: @import "tailwindcss"; */
+
+/* Em vez disso, use o padrão do Tailwind v3: */
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
 @import "tailwindcss";
 
 @layer base {
   body {
     @apply antialiased;
+  }
+  
+  /* Garante que o tema escuro funcione corretamente */
+  :root {
+    color-scheme: light dark;
+  }
+  
+  .dark {
+    color-scheme: dark;
   }
 }
 
@@ -94,7 +110,7 @@
   }
 }
 
-/* Clerk specific styles */
+/* Clerk specific styles - CORRIGIDO */
 .cl-rootBox {
   width: 100%;
 }
@@ -106,6 +122,7 @@
 
 .cl-formButtonPrimary {
   background-color: #3b82f6 !important;
+  border: none !important;
 }
 
 .cl-formButtonPrimary:hover {
@@ -120,7 +137,8 @@
   color: #2563eb !important;
 }
 
-/* Dark mode support for Clerk */
+/* REMOVA OU COMENTE este bloco - ele está interferindo */
+/* 
 @media (prefers-color-scheme: dark) {
   .cl-card {
     background: transparent !important;
@@ -134,3 +152,33 @@
     color: #9ca3af !important;
   }
 }
+*/
+
+/* Em vez disso, use classes Tailwind diretamente */
+.dark .cl-card {
+  background: transparent !important;
+}
+
+.dark .cl-headerTitle {
+  color: #fff !important;
+}
+
+.dark .cl-headerSubtitle {
+  color: #9ca3af !important;
+}
+
+.dark .formFieldInput {
+  background-color: #374151 !important;
+  border-color: #4b5563 !important;
+}
+
+/* DEBUG - Descomente temporariamente para testar */
+/*
+.debug-border {
+  border: 2px solid red !important;
+}
+
+.dark .debug-border {
+  border: 2px solid blue !important;
+}
+*/
