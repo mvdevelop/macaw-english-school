@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
 import { toggleTheme } from '../store/slices/themeSlice';
 import { useState } from 'react';
+import AuthStatus from './auth/AuthStatus';
 
 const Navbar: React.FC = () => {
   const dispatch = useDispatch();
@@ -29,9 +30,9 @@ const Navbar: React.FC = () => {
   const navLinks = [
     { name: 'Home', icon: <FiHome />, path: '/' },
     { name: 'Cursos', icon: <FiBookOpen />, path: '/courses' },
-    { name: 'Perfil', icon: <FiUser />, path: '/profile' },
-    { name: 'Notificações', icon: <FiBell />, path: '/notifications' },
-    { name: 'Mensagens', icon: <FiMessageSquare />, path: '/messages' },
+    { name: 'Professores', icon: <FiUser />, path: '/teachers' },
+    { name: 'Comunidade', icon: <FiMessageSquare />, path: '/community' },
+    { name: 'Preços', icon: <FiBell />, path: '/pricing' },
   ];
 
   return (
@@ -41,7 +42,7 @@ const Navbar: React.FC = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-r from-macaw-blue to-macaw-green rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-green-600 rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-xl">M</span>
               </div>
               <span className="text-xl font-bold text-gray-800 dark:text-white">
@@ -72,14 +73,8 @@ const Navbar: React.FC = () => {
               {theme === 'light' ? <FiMoon size={20} /> : <FiSun size={20} />}
             </button>
 
-            {/* User Profile */}
-            <div className="relative">
-              <button className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
-                <div className="w-8 h-8 bg-macaw-yellow rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold">U</span>
-                </div>
-              </button>
-            </div>
+            {/* Auth Status */}
+            <AuthStatus />
           </div>
 
           {/* Mobile menu button */}
@@ -90,6 +85,7 @@ const Navbar: React.FC = () => {
             >
               {theme === 'light' ? <FiMoon size={20} /> : <FiSun size={20} />}
             </button>
+            <AuthStatus />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 rounded-md text-gray-700 dark:text-gray-200"

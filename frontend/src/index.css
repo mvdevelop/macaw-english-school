@@ -42,3 +42,95 @@
 * {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
+
+/* Responsive utilities */
+@layer utilities {
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* Swiper custom styles para mobile */
+@media (max-width: 768px) {
+  .testimonials-swiper .swiper-pagination {
+    bottom: 0 !important;
+  }
+  
+  .testimonials-swiper .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Melhorias de toque para mobile */
+@media (hover: none) and (pointer: coarse) {
+  button, 
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .sidebar-button {
+    padding: 12px;
+  }
+}
+
+/* Animações suaves */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Clerk specific styles */
+.cl-rootBox {
+  width: 100%;
+}
+
+.cl-card {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.cl-formButtonPrimary {
+  background-color: #3b82f6 !important;
+}
+
+.cl-formButtonPrimary:hover {
+  background-color: #2563eb !important;
+}
+
+.cl-footerActionLink {
+  color: #3b82f6 !important;
+}
+
+.cl-footerActionLink:hover {
+  color: #2563eb !important;
+}
+
+/* Dark mode support for Clerk */
+@media (prefers-color-scheme: dark) {
+  .cl-card {
+    background: transparent !important;
+  }
+  
+  .cl-headerTitle {
+    color: #fff !important;
+  }
+  
+  .cl-headerSubtitle {
+    color: #9ca3af !important;
+  }
+}
